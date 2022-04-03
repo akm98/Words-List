@@ -56,6 +56,7 @@ function Words() {
 				if(res.data.IsSuccess){
 					alert(`${temp} deleted Successfully`);
 					SetInputWordval("");
+					SetDeleteId(null);
 				}else{
 					alert(`Couldn't delete ${temp}. Maybe Word was not found!`)
 				}
@@ -245,6 +246,7 @@ function Words() {
 							<button
 								className='btn btn-danger mt-3'
 								onClick={() => deleteWord()}
+								disabled = {deleteId === null}
 							>
 								Delete
 							</button>
