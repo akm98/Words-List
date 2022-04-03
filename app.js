@@ -40,6 +40,7 @@ app.post("/words/add",async (req, res)=>{
 	try{
 		res.set('Access-Control-Allow-Origin', 'http://localhost:3000');
   		res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+		
 		const newWord = new WordsMaster(req.body);
 		await newWord.save();
 		res.json({ response:"Word added successfully" });
@@ -47,6 +48,67 @@ app.post("/words/add",async (req, res)=>{
 	catch(error){
 		console.log(error)
 	}
+})
+
+app.delete("/words/delete",async (req, res)=>{
+	res.set('Access-Control-Allow-Origin', 'http://localhost:3000');
+	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+
+	const id = req.query.id;
+	WordsMaster.destroy({
+		where: { id: id }
+	}).then(num => {
+		if (num == 1) {
+		  res.send({
+			message: "Word was deleted successfully!",
+			IsSuccess: true
+		  });
+		} else {
+		  res.send({
+			message: `Cannot delete Word with id=${id}. Maybe Word was not found!`,
+			IsSuccess: false
+		  });
+		}
+	  })
+	  .catch(err => {
+		res.status(500).send({
+		  message: "Could not delete Word with id=" + id,
+		  IsSuccess: false
+		});
+	});
+
+	
+})
+
+app.post("/words/edit",async (req, res)=>{
+	res.set('Access-Control-Allow-Origin', 'http://localhost:3000');
+	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+
+	const id = req.body.id;
+	const word = req.body.word;
+	WordsMaster.update(req.body, {
+		where: { id: id }
+	}).then(num => {
+		if (num == 1) {
+		  res.send({
+			message: "Word was updated successfully!",
+			IsSuccess: true
+		  });
+		} else {
+		  res.send({
+			message: `Cannot updated Word with id=${id}. Maybe Word was not found!`,
+			IsSuccess: false
+		  });
+		}
+	  })
+	  .catch(err => {
+		res.status(500).send({
+		  message: "Could not updated Word with id=" + id,
+		  IsSuccess: false
+		});
+	});
+
+	
 })
 
 app.get("/words", async (req, res) => {
