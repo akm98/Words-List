@@ -1,4 +1,4 @@
-import React from "react";
+import { useState, useEffect } from 'react';
 import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
@@ -8,21 +8,21 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 
 
 function Words() {
-	const [wordsList, setWordsList] = React.useState(null);
-	const [error, seterror] = React.useState(null);
-	const [editErr, SetEditErr] = React.useState(null);
+	const [wordsList, setWordsList] = useState(null);
+	const [error, seterror] = useState(null);
+	const [editErr, SetEditErr] = useState(null);
 
 	
-	const [inputWordval, SetInputWordval] = React.useState("");
-	const [updatedWordval, SetUpdatedWordval] = React.useState("");
-	const [dropDownValue, SetDropDownValue] = React.useState("Select a word to delete");
-	const [deleteId, SetDeleteId] = React.useState(null);
-	const [editDropDownValue, SetEditDropDownValue] = React.useState("Select a word to edit");
-	const [editId, SetEditId] = React.useState(null);
-	const [enableEditBox, SetEnableEditBox] = React.useState(false);
+	const [inputWordval, SetInputWordval] = useState("");
+	const [updatedWordval, SetUpdatedWordval] = useState("");
+	const [dropDownValue, SetDropDownValue] = useState("Select a word to delete");
+	const [deleteId, SetDeleteId] = useState(null);
+	const [editDropDownValue, SetEditDropDownValue] = useState("Select a word to edit");
+	const [editId, SetEditId] = useState(null);
+	const [enableEditBox, SetEnableEditBox] = useState(false);
 
 	
-	React.useEffect(() => {
+	useEffect(() => {
 		getWords();
 	}, []);
 
@@ -195,8 +195,7 @@ function Words() {
 
 						<div className='edit'>
 							<label>Edit Word </label>
-							<DropdownButton
-								alignRight
+							<DropdownButton							
 								title={editDropDownValue}
 								id="dropdown-menu-align-right"
 								onSelect={handleEditSelect}
@@ -230,7 +229,6 @@ function Words() {
 						<div className='delete mt-3'>
 							<label>Delete Word </label>
 							<DropdownButton
-								alignRight
 								title={dropDownValue}
 								id="dropdown-menu-align-right"
 								onSelect={handleSelect}
