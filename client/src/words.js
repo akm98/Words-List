@@ -27,7 +27,7 @@ function Words() {
 	}, []);
 
 	const getWords = () => {
-		fetch("/words")
+		fetch("https://wordlistakm.herokuapp.com/words")
 			.then((results) => results.json())
 			.then((data) => {
 				data.words.sort(function(a,b){
@@ -39,7 +39,7 @@ function Words() {
 	const deleteWord = () =>{
 		if(deleteId != null && deleteId>0){			
 			axios
-			.delete(`/words/delete?id=${deleteId}`, {
+			.delete(`https://wordlistakm.herokuapp.com/words/delete?id=${deleteId}`, {
 				headers: {
 					"Access-Control-Allow-Origin": "*",
 					"Content-Type": "application/json",
@@ -71,7 +71,7 @@ function Words() {
 				word:updatedWordval
 			}		
 			axios
-			.post(`/words/edit`, body ,{
+			.post(`https://wordlistakm.herokuapp.com/words/edit`, body ,{
 				headers: {
 					"Access-Control-Allow-Origin": "*",
 					"Content-Type": "application/json",
@@ -100,7 +100,7 @@ function Words() {
 			word: inputWordval,
 		};
 		axios
-			.post(`/words/add`, body, {
+			.post(`https://wordlistakm.herokuapp.com/words/add`, body, {
 				headers: {
 					"Access-Control-Allow-Origin": "*",
 					"Content-Type": "application/json",

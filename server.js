@@ -6,14 +6,7 @@ const pool = require("./dbconfig");
 const port = process.env.PORT || 5000;
 app.use(express.json());
 
-const devConfig = {
-  user: 'postgres',
-  password: process.env.PG_PASSWORD,
-  host: process.env.PG_HOST,
-  database: process.env.PG_DATABASE,
-  port: process.env.PG_PORT,
-  dialect: 'postgres',
-};
+console.log("env",process.env.DATABASE_URL,process.env.PG_DATABASE,process.env.PG_USER, process.env.PG_PASSWORD,process.env.PG_HOST,process.env.PG_PORT)
 
 const sequelize = new Sequelize(process.env.PG_DATABASE, process.env.PG_USER, process.env.PG_PASSWORD, {
 	host:process.env.PG_HOST,
