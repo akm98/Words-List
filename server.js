@@ -6,12 +6,13 @@ const pool = require("./dbconfig");
 const port = process.env.PORT || 5000;
 app.use(express.json());
 
-console.log("env",process.env.DATABASE_URL,process.env.PG_DATABASE,process.env.PG_USER, process.env.PG_PASSWORD,process.env.PG_HOST,process.env.PG_PORT)
-
-const sequelize = new Sequelize("dpgjcamtou9ve", "urnuwnvhsmcdkz", "bf695b757ef7c8c1636a4105f436d56a5e8ecaaf96aafa281848e8ed27e827c6", {
-	host:"ec2-3-248-121-12.eu-west-1.compute.amazonaws.com",
-	port:"5432",
+const sequelize = new Sequelize(process.env.DATABASE_URL,{
 	dialect: 'postgres',
+	dialectOptions: {
+		ssl: {
+			rejectUnauthorized: false
+		}
+	}
 	// define: {		
 	// 	createdAt: 'createdat',
 	// 	updatedAt: 'updatedat',
